@@ -1,6 +1,7 @@
 import yaml
 import os
 from datetime import datetime
+from logistics_pipeline.report_generator import generate_html_report
 
 # === Importar motores principales de BettaFish ===
 from QueryEngine.query import QueryEngine
@@ -52,6 +53,9 @@ def run_pipeline():
     with open(output_file, "w", encoding="utf-8") as f:
         import json
         json.dump(analysis, f, ensure_ascii=False, indent=2)
+    # 6. Generar reporte HTML con gráficos
+    html_file = generate_html_report(analysis)
+    print(f"📄 Reporte HTML generado en: {html_file}")
 
     print(f"\n📁 Reporte guardado en: {output_file}")
     print("\n✨ Pipeline completado.\n")
